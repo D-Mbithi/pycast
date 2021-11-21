@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "==3.2.5"
 psycopg2 = "*"
+feedparser = "*"
+django-apscheduler = "*"
 
 [dev-packages]
 
