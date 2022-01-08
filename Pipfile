@@ -8,6 +8,7 @@ django = "==3.2.5"
 psycopg2 = "*"
 feedparser = "*"
 django-apscheduler = "*"
+python-dateutil = "*"
 
 [dev-packages]
 
