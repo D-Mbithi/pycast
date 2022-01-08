@@ -45,7 +45,9 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,8 +71,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pycast',
         'USER': 'postgres',
-        'PASSWORD': 'fr1ct10n',
-        'HOST': '127.0.0.1',
+        'PASSWORD': '4y7sV96vA9wv46VR',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
