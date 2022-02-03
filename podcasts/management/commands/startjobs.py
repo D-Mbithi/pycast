@@ -45,6 +45,19 @@ def fetch_realpython_episodes():
     _feed = feedparser.parse("https://realpython.com/podcasts/rpp/feed")
     save_new_episodes(_feed)
 
+# https://www.spreaker.com/show/4940884/episodes/feed
+# https://feeds.simplecast.com/WpQaX_cs
+# https://feeds.transistor.fm/the-built-with-django-podcast
+
+def fetch_django_stars_episodes():
+    """Fetches new episodes from RSS for Django Stars Podcast."""
+    _feed = feedparser.parse("https://www.spreaker.com/show/4940884/episodes/feed")
+    save_new_episodes(_feed)
+
+def fetch_django_riffs_episodes():
+    """Fetches new episodes from RSS for Django Riffs Podcast."""
+    _feed = feedparser.parse("https://feeds.simplecast.com/l_5sU3vk")
+    save_new_episodes(_feed)
 
 def fetch_talkpython_episodes():
     """Fetches new episodes from RSS for the Talk Python to Me Podcast."""
@@ -72,8 +85,7 @@ class Command(BaseCommand):
         )
 
         logger.info("Added job: The Real Python Podcast.")
-
-
+    
         scheduler.add_job(
             fetch_talkpython_episodes,
             trigger='interval',
@@ -85,6 +97,27 @@ class Command(BaseCommand):
 
         logger.info("Added job: The Talk Python Podcast.")
 
+        scheduler.add_job(
+            fetch_django_riffs_episodes,
+            trigger='interval',
+            minutes=2,
+            id="The Django Riffs Podcast",
+            max_instances=1,
+            replace_existing=True
+        )
+
+        logger.info("Added job: The Django Riffs Podcast.")
+
+        scheduler.add_job(
+            fetch_django_stars_episodes,
+            trigger='interval',
+            minutes=2,
+            id="The Django Stars Podcast",
+            max_instances=1,
+            replace_existing=True
+        )
+
+        logger.info("Added job: The Django Stars Podcast.")
 
         scheduler.add_job(
             delete_old_execution_jobs,

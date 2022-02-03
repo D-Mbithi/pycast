@@ -7,9 +7,6 @@ from .models import Episode
 class HomePageView(ListView):
     template_name = "homepage.html"
     model = Episode
+    paginate_by = 10
+    context_object_name = "podcasts"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["episodes"] = Episode.objects.filter().order_by("-pub_date")
-
-        return context
