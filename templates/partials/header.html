@@ -1,0 +1,25 @@
+{% load static %}
+
+<header>
+    <nav class="container flex justify-around mx-auto bg-white shadow-sm mb-10">
+        <div>
+            <img class="w-32 rounded-full" src="{% static 'imgs/pycasts.png' %}" alt="pyCasts! Logo" id="site-logo" />
+        </div>
+        <!-- left header section -->
+        <div class="items-center space-x-8 lg:flex">
+            <a href="">Home</a>
+            <a href="">Podcasts</a>
+            <a href="">Blogs</a>
+            <a href="">About Us</a>
+        </div>
+        <!-- right header section -->
+        <div class="flex items-center space-x-2">
+            <button class="px-4 py-2 text-blue-100 bg-blue-800 rounded-md">
+                Sign in
+            </button>
+            <button class="px-4 py-2 text-gray-200 bg-gray-400 rounded-md">
+                Sign up
+            </button>
+        </div>
+    </nav>
+</header>

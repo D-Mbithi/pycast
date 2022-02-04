@@ -4,71 +4,58 @@
 
 {% block title %} Home {% endblock title %} 
 
-{% block header %}
-<header>
-    <nav class="container">
-        <div class="row">
-            <div class="col text-center">
-                <img src="{% static 'imgs/pycasts.png' %}" alt="pyCasts! Logo" id="site-logo" />
-            </div>
-        </div>
-    </nav>
-</header>
-{% endblock header %} 
-
 {% block content %}
-<main class="container flex-grow-1">
+<main class="container flex-grow-1 mx-auto px-4">
     <div class="row">
         <div class="col">
             {% for podcast in podcasts %}
-            <section class="card mb-3">
-                <div class="row no-gutters">
-                    <div class="col-md-2 my-auto">
-                        <img src="{{ podcast.image }}" class="img-fluid ml-3 my-3" alt="{{ podcast.podcast_name }}" />
+                <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-screen-lg mb-4">
+                    <div class="md:flex">
+                    <div class="md:shrink-0">
+                        <img class="h-48 w-full object-cover md:h-full md:w-48" src="{{ podcast.image }}" alt="Man looking at item at a store">
                     </div>
-                    <div class="col-md-10">
-                        <div class="card-body ml-3">
-                            <h3 class="card-title">{{ podcast.title }}</h3>
-                            <p class="card-text">{{ podcast.description }}</p>
-                            <a href="{{ podcast.link }}">
-                                <p class="card-text">🎧 Listen to this episode</p>
-                            </a>
-                        </div>
+                    <div class="p-8">
+                        <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{{ podcast.podcast_name }}</div>
+                        <a href="#" class="block mt-1 text-base leading-tight font-medium text-black hover:underline">{{ podcast.title }}</a>
+                        <p class="mt-2 text-slate-500 font-light">{{ podcast.description|truncatewords:40 }}
+                        <span><a href="{{ podcast.link }}" class="text-indigo-400 mx-3">
+                            🎧 Listen to this episode
+                        </a></span>
+                        </p>
+                    </div>
                     </div>
                 </div>
-            </section>
             {% endfor %}
         </div>
     </div>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination pagination-lg">
-            {% if page_obj.has_previous %}
-                <li class="page-item"></li><a class="page-link" href="?page=1">&laquo; first</a></li>
-                <li class="page-item"></li><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+
+    <div class="flex items-center space-x-1 justify-center">
+        {% if page_obj.has_previous %}
+        <a class="flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md" href="?page=1">&laquo;</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md">&lt;</a>
+        {% endif %}
+
+        {% for page in paginator.page_range %}
+            {% if page_obj.number == page %}
+                <a class="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-blue-400 hover:text-white" href="?page={{ page }}"><strong><u>{{ page }}</u></strong></a>
+            {% elif page > page_obj.number|add:'-3' and page < page_obj.number|add:'3' %}
+                <a class="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-blue-400 hover:text-white" href="?page={{ page }}">{{ page }}</a>
             {% endif %}
-      <!-- Numbered Buttons -->
-            {% for page in paginator.page_range %}
-                {% if page_obj.number == page %}
-                    <li class="page-item">
-                        <a class="page-link" href="?page={{ page }}"><strong><u>{{ page }}</u></strong></a>
-                    </li>
-                {% elif page > page_obj.number|add:'-3' and page < page_obj.number|add:'3' %}
-                    <li class="page-item">
-                        <a class="page-link active" href="?page={{ page }}">{{ page }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-            {% if page_obj.has_next %}
-                <li class="page-item"></li><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
-                <li class="page-item"></li><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-<footer class="container-fluid">
+        {% endfor %}
+   
+        {% if page_obj.has_next %}
+        <a class="px-4 py-2 font-bold text-gray-500 bg-gray-300 rounded-md hover:bg-blue-400 hover:text-white" href="?page={{ page_obj.next_page_number }}">&gt;</a>
+        <a class="px-4 py-2 font-bold text-gray-500 bg-gray-300 rounded-md hover:bg-blue-400 hover:text-white" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+        {% endif %}
+    </div>
+</main>
+<!-- <footer class="container-fluid">
     <div class="row">
         <div class="col text-center">
             <img src="{% static 'imgs/python-powered.svg' %}" alt="Python Powered" height="50px" />
         </div>
     </div>
-</footer>
+</footer> -->
 {% endblock content %}
+
+    
